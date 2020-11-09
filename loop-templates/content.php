@@ -11,46 +11,35 @@ defined( 'ABSPATH' ) || exit;
 
 <article <?php post_class(); ?> id="post-<?php the_ID(); ?>">
 
-	<header class="entry-header">
+	<div class="archive-post-image"
+		<?php  if( has_post_thumbnail() ) { ?>
+			style="background-image:url(<?php echo get_the_post_thumbnail_url(); ?>)"
+		<?php } ?> >
+	</div>
 
-		<?php
-		the_title(
-			sprintf( '<h2 class="entry-title"><a href="%s" rel="bookmark">', esc_url( get_permalink() ) ),
-			'</a></h2>'
-		);
-		?>
+	<div class="article-body-holder">
+		<header class="entry-header">
+			<?php
+				the_title(
+					sprintf( '<h2 class="entry-title"><a href="%s" rel="bookmark">', esc_url( get_permalink() ) ),
+					'</a></h2>'
+				);
+			?>
+		</header><!-- .entry-header -->
 
-		<?php if ( 'post' === get_post_type() ) : ?>
+		<div class="entry-content">
 
-			<div class="entry-meta">
-				<?php understrap_posted_on(); ?>
-			</div><!-- .entry-meta -->
+			<?php the_post_summary(); ?>
 
-		<?php endif; ?>
-
-	</header><!-- .entry-header -->
-
-	<?php echo get_the_post_thumbnail( $post->ID, 'large' ); ?>
-
-	<div class="entry-content">
-
-		<?php the_excerpt(); ?>
-
-		<?php
-		wp_link_pages(
-			array(
-				'before' => '<div class="page-links">' . __( 'Pages:', 'understrap' ),
-				'after'  => '</div>',
-			)
-		);
-		?>
-
-	</div><!-- .entry-content -->
-
-	<footer class="entry-footer">
-
-		<?php understrap_entry_footer(); ?>
-
-	</footer>
+		</div><!-- .entry-content -->
+		
+		<div class="entry-metadata">
+			<a href="<?php echo the_permalink(); ?>" class="button outline">Read more</a>
+			
+			<div class="date">
+				<i class="fa fa-calendar"></i> <?php echo get_the_date('m.d.Y'); ?>
+			</div>
+		</div>
+	</div>
 
 </article><!-- #post-## -->

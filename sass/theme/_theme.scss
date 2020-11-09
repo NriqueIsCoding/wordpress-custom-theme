@@ -37,6 +37,10 @@ body {
   max-height: 440px;
   padding-right: 3rem;
 
+  li.active a {
+    color: #e77785;
+  }
+
   li:hover {
     @media (max-width: $md) {
       background: rgba(0, 0, 0, 0.07);
@@ -1468,19 +1472,21 @@ body {
     }
   }
 }
-.post-archive-header-holder {
-  height: 600px;
-  background: black;
-  background-image: url(../img/page-placeholder.jpg);
-  background-size: cover;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
+
+// .post-archive-header-holder {
+//   height: 600px;
+//   background: black;
+//   background-image: url(../img/page-placeholder.jpg);
+//   background-size: cover;
+//   display: flex;
+//   flex-direction: column;
+//   justify-content: center;
+// }
 
 .blog-header,
 .post-header,
-.page-header {
+.page-header,
+.post-archive-header-holder {
   height: 500px;
   background: black;
   background-image: url(../img/page-placeholder.jpg);
@@ -1527,6 +1533,7 @@ body {
 .post-header {
   margin-bottom: 5rem;
 }
+
 .post-header-metadata {
   background: #fff;
   padding: 1rem;
@@ -1571,6 +1578,10 @@ body {
       padding: 0;
       font-weight: 400;
 
+      a {
+        color: #282828 !important;
+      }
+
       &:before {
         content: "\f0a9";
         display: inline-block;
@@ -1581,6 +1592,7 @@ body {
     }
   }
 }
+
 .post-navigation-options {
   margin-top: 4rem;
 
@@ -1603,6 +1615,7 @@ body {
   padding-bottom: 0;
   padding-top: 0;
 }
+
 .contact-us-section {
   padding-top: 5rem;
   padding-bottom: 5rem;
@@ -1822,6 +1835,53 @@ body {
           font-size: 15px;
           padding-right: 2rem;
           padding-left: 2.5rem;
+        }
+      }
+    }
+  }
+}
+
+#main {
+  article.post {
+    border-radius: 15px;
+    overflow: hidden;
+    margin-bottom: 30px;
+    min-height: 500px;
+
+    .archive-post-image {
+      height: 200px;
+      background-size: cover;
+      background-position: center;
+      background-image: url(../img/page-placeholder.jpg);
+    }
+
+    .article-body-holder {
+      padding: 20px;
+      h2 {
+        a {
+          font-size: 26px;
+          color: black;
+          font-weight: 300;
+          text-transform: uppercase;
+        }
+      }
+      .entry-content {
+        font-weight: 300;
+        line-height: 1.15;
+        margin-top: 15px;
+        margin-bottom: 15px;
+      }
+      .entry-metadata {
+        display: flex;
+        align-items: center;
+
+        .date {
+          font-weight: 300;
+          margin-left: 15px;
+
+          .fa {
+            color: #e77785;
+          }
         }
       }
     }

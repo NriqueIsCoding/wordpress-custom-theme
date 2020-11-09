@@ -15,9 +15,20 @@ get_header();
 $container = get_theme_mod( 'understrap_container_type' );
 ?>
 
-<div class="post-archive-header-holder">
+<div class="post-archive-header-holder"
+	<?php  if( has_post_thumbnail() ) { ?>
+		style="background-image:url(<?php echo get_the_post_thumbnail_url(); ?>)"
+	<?php } ?> >
+
 	<div class="container header-container">
-		<?php the_archive_title( '<h1 class="page-title">', '</h1>' ); ?>
+		<header class="entry-header">
+			<div class="entry-subtitle">
+				Enjoy the soothing experience!
+			</div>
+			<h1 class="entry-title">
+				<?php single_term_title(); ?> 
+			</h1>
+		</header>
 	</div>
 </div>
 
@@ -26,36 +37,51 @@ $container = get_theme_mod( 'understrap_container_type' );
 	<div class="<?php echo esc_attr( $container ); ?>" id="content" tabindex="-1">
 		<div class="row">
 
-			<!-- Do the left sidebar check -->
-			<?php get_template_part( 'global-templates/left-sidebar-check' ); ?>
+			<div class="col-lg-8">
+				<main class="site-main" id="main">
+					<?php if ( have_posts() ) { ?>
+							<div class="row">
+								<?php while ( have_posts() ) { ?>
+										<div class="col-lg-6">
+											<?php
+												the_post();
+												get_template_part( 'loop-templates/content', get_post_format() );
 
-			<main class="site-main" id="main">
-				<?php
-				if ( have_posts() ) {
-					?>
-						<?php
-							the_archive_description( '<div class="taxonomy-description">', '</div>' );
+											?>
+										</div>
+								<?php } ?>
+					<?php } else {
+							get_template_part( 'loop-templates/content', 'none' );
+						}
 						?>
-					<?php
-					// Start the loop.
-					while ( have_posts() ) {
-						the_post();
-						get_template_part( 'loop-templates/content', get_post_format() );
-					}
-				} else {
-					get_template_part( 'loop-templates/content', 'none' );
-				}
-				?>
-			</main><!-- #main -->
+						</div>
+				</main><!-- #main -->
+			</div>
 
-			<?php
-			// Display the pagination component.
-			understrap_pagination();
-			// Do the right sidebar check.
-			get_template_part( 'global-templates/right-sidebar-check' );
-			?>
+			<div class="col-lg-4">
+				<div class="right-sidebar-blog-categories">
+					<h3>Blog Categories</h3>
+					<ul>
+						<?php
+							$categories = get_categories();
+
+							foreach($categories as $category) {
+								echo '<li><a href="' . get_category_link($category->term_id) . '">' . $category->name . '</a></li>';
+							}
+						?>
+					</ul>
+				</div>
+			</div>
 
 		</div><!-- .row -->
+
+		<div class="post-navigation-options">
+			<?php
+				// Display the pagination component.
+				understrap_pagination();
+			?>
+		</div>
+
 	</div><!-- #content -->
 </div><!-- #archive-wrapper -->
 
