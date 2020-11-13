@@ -34,8 +34,9 @@ defined( 'ABSPATH' ) || exit;
 		</div><!-- .entry-content -->
 		
 		<div class="entry-metadata">
-			<a href="<?php echo the_permalink(); ?>" class="button outline">Read more</a>
-			
+			<div class="blog-link">
+				<a class="btn btn-primary read-more-button" href="<?php echo the_permalink();?>" role="button">Read More</a>
+			</div>		
 			<div class="date">
 				<i class="fa fa-calendar"></i> <?php echo get_the_date('m.d.Y'); ?>
 			</div>

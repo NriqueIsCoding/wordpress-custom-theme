@@ -26,6 +26,9 @@ $container = get_theme_mod( 'understrap_container_type' );
 
 	<div class="container header-container">
 		<header class="entry-header">
+			<div class="entry-subtitle">
+				Enjoy the soothing experience!
+			</div>
 			<?php the_title('<h1 class="entry-title">', '</h1>'); ?>
 		</header>
 	</div>
@@ -51,7 +54,7 @@ $container = get_theme_mod( 'understrap_container_type' );
 		</div>
 
 		<div class="row">
-			<div class="col-lg-7">
+			<div class="col-lg-12">
 				<main class="site-main" id="main">
 					<?php
 						while ( have_posts() ) {
@@ -61,20 +64,20 @@ $container = get_theme_mod( 'understrap_container_type' );
 					?>
 				</main>
 			</div>
-			<div class="offset-lg-1 col-lg-4">
+			<!-- <div class="offset-lg-1 col-lg-4">
 				<div class="right-sidebar-blog-categories">
 					<h3>Blog Categories</h3>
 					<ul>
-						<?php
-							$categories = get_categories();
+						<?#php
+							// $categories = get_categories();
 
-							foreach($categories as $category) {
-								echo '<li><a href="' . get_category_link($category->term_id) . '">' . $category->name . '</a></li>';
-							}
+							// foreach($categories as $category) {
+							// 	echo '<li><a href="' . get_category_link($category->term_id) . '">' . $category->name . '</a></li>';
+							// }
 						?>
 					</ul>
 				</div>
-			</div>
+			</div> -->
 		</div>
 
 		<div class="post-navigation-options">

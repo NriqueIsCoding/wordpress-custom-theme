@@ -47,9 +47,7 @@ if ( is_front_page() ) {
                 <div class="card-body">
                     <p class="card-title">We are here</p>
                     <p class="card-text">
-                        908 New Hampshire Avenue <br>
-                        Northwest #100, Washington, <br>
-                        DC 20037, United States
+                        Bentonville, Arkansas <br>
                     </p>
                 </div>
             </div>
@@ -63,11 +61,9 @@ if ( is_front_page() ) {
                     </div>
                 </div>
                 <div class="card-body">
-                    <p class="card-title">call us</p>
+                    <p class="card-title">call us today</p>
                     <p class="card-text">
-                        Phone: +1 916-875-2235 <br>
-                        Mobile: +1 916-875-2235 <br>
-                        Fax: +1 916-875-2235
+                        Phone: +1 561-768-2538 <br>
                     </p>
                 </div>
             </div>
@@ -83,9 +79,9 @@ if ( is_front_page() ) {
                 <div class="card-body">
                     <p class="card-title">working hours</p>
                     <p class="card-text">
-                        Monday-Friday: 9:00 – 22:00 <br>
-                        Saturday: 11:00 – 20:00 <br>
-                        Sunday: 11:00 – 17:00
+                        Monday-Friday: 7:00am – 9:00pm <br>
+                        Saturday: 7:00am – 9:00pm <br>
+                        Sunday: 7:00am – 9:00pm
                     </p>
                 </div>
             </div>

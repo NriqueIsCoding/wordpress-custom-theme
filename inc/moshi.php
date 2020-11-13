@@ -3,7 +3,7 @@
 // Disable Gutternberg
 add_filter('use_block_editor_for_post', '__return_false', 10);
 
-function the_post_summary($length = 128, $string = ""){
+function the_post_summary($length = 250, $string = ""){
 	if($string){
 		$content = $string;
 	} else {
@@ -23,3 +23,10 @@ function moshi_enqueue_scripts() {
 
 add_action( 'wp_enqueue_scripts', 'moshi_enqueue_scripts' );
 
+add_filter('next_post_link', 'post_link_attributes');
+add_filter('previous_post_link', 'post_link_attributes');
+
+function post_link_attributes($output) {
+    $code = 'class="btn btn-primary read-more-button"';
+    return str_replace('<a href=', '<a '.$code.' href=', $output);
+}

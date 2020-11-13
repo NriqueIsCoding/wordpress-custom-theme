@@ -315,47 +315,88 @@ get_header();
     </div>
 </div>
 
+    
 <div class="blog-banner">
     <div class="container">
         <div class="blogs-container">
             <div class="blogs-text">
                 <span>
-                    latest events & news
+                    Because knowledge is power
                 </span>
                 <div class="title">
                     <p>
-                        From the Blog
+                        Our latest news and classes
                     </p>
                 </div>
-                <div class="description">
+                <!-- <div class="description">
                     <p>
                         Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
                     </p>
-                </div>
+                </div> -->
             </div>
             <div class="blogs">
-                <div class="card">
-                    <div class="card-img-top">
-                        <img src="<?php echo bloginfo('template_url'); ?>/img/post-sample-1.jpg"/>
-                    </div>
-                    <div class="card-body">
-                        <div class="author">
-                            <p>By Lisa Emerson</p>  
+
+                <?php 
+                    query_posts(array(
+                        'category__not_in' => array($headline),
+                        'post__not_in' => $postnotin,
+                        'paged' => $paged,
+                        'posts_per_page' => 5
+                    ));
+
+                if ( have_posts() ) { 
+                    $postCount = 0;     
+                ?>
+
+                <?php while ( have_posts() ) : the_post(); $postCount++;
+                    if ($postCount < 5) {
+                ?>
+                        <div class="card">
+                            <div class="card-img-top">
+                                <img src="
+                                    <?php   
+                                        if( has_post_thumbnail() ) { 
+                                            echo get_the_post_thumbnail_url();
+                                        } else {
+                                            echo bloginfo('template_url') . "/img/home-classes-placeholder.jpg";
+                                        }
+                                    ?>
+                                    "/>
+                            </div>
+                            <div class="card-body">
+                                <div class="author">
+                                    <p> by
+                                        <?php 
+                                            the_author();
+                                        ?>
+                                    </p>  
+                                </div>
+                                <div class="blog-title">
+                                    <p>
+                                        <?php 
+                                            the_title();
+                                        ?>
+                                    </p>
+                                </div>
+                                <div class="blog-details">
+                                    <p>
+                                        <?php the_post_summary(); ?>
+                                    </p>
+                                </div>
+                                <div class="blog-link">
+                                    <a class="btn btn-primary read-more-button" href="<?php echo the_permalink();?>" role="button">Read More</a>
+                                </div>
+                            </div>
                         </div>
-                        <div class="blog-title">
-                            <p>Beauty Post</p>
-                        </div>
-                        <div class="blog-details">
-                            <p>
-                                Lorem Ipsum. Proin gravida nibh vel velit auctor aliquet. Aenean sollicitudin, lorem quis bibendum auctor, nisi elit consequat ipsum.
-                            </p>
-                        </div>
-                        <div class="blog-link">
-                            <button class="btn cpgreen btn-lg btn-primary read-more-button" type="submit">Read More</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="card second">
+                    
+                    <?php } ?> 
+
+                <?php endwhile; ?>
+
+                <?php } ?>
+
+                
+                <!-- <div class="card second">
                     <div class="card-img-top">
                     <img src="<?php echo bloginfo('template_url'); ?>/img/post-sample-2.jpg"/>
                     </div>
@@ -417,6 +458,11 @@ get_header();
                             <button class="btn cpgreen btn-lg btn-primary read-more-button" type="submit">Read More</button>
                         </div>
                     </div>
+                </div> -->
+            </div>
+            <div class="blogs-show-me-more">
+                <div class="blogs-show-me-more-link">
+                    <a class="btn btn-primary show-me-more-button" href="<?php echo esc_url('/wordpress/category/classes'); ?>" role="button">Show me more classes</a>
                 </div>
             </div>
         </div>
