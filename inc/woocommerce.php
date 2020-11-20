@@ -31,6 +31,7 @@ remove_action( 'woocommerce_before_main_content', 'woocommerce_output_content_wr
 remove_action( 'woocommerce_after_main_content', 'woocommerce_output_content_wrapper_end', 10 );
 
 // Then hook in your own functions to display the wrappers your theme requires.
+
 add_action( 'woocommerce_before_main_content', 'understrap_woocommerce_wrapper_start', 10 );
 add_action( 'woocommerce_after_main_content', 'understrap_woocommerce_wrapper_end', 10 );
 
@@ -40,6 +41,17 @@ if ( ! function_exists( 'understrap_woocommerce_wrapper_start' ) ) {
 	 */
 	function understrap_woocommerce_wrapper_start() {
 		$container = get_theme_mod( 'understrap_container_type' );
+		echo '<header class="product-header entry-header">';
+		echo 
+		'<div class="container">
+			<div class="entry-subtitle">
+				Enjoy the soothing experience!
+			</div>
+			<h1 class="entry-title">
+				products
+			</h1>
+		</div>';
+		echo '</header>';
 		echo '<div class="wrapper" id="woocommerce-wrapper">';
 		echo '<div class="' . esc_attr( $container ) . '" id="content" tabindex="-1">';
 		echo '<div class="row">';
