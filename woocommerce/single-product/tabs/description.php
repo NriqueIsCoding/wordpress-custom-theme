@@ -28,3 +28,5 @@ $heading = apply_filters( 'woocommerce_product_description_heading', __( 'Descri
 <?php endif; ?>
 
 <?php the_content(); ?>
+
+
