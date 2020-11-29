@@ -2062,7 +2062,8 @@ body {
 }
 
 #woocommerce-wrapper {
-  margin-top: 4rem;
+  background-color: #f9f6f5;
+  // margin-top: 4rem;
 
   #main {
     .woocommerce-tabs {
@@ -2252,6 +2253,121 @@ body {
       display: block;
       clear: both;
     }
+
+    .products {
+      .row {
+        @media (max-width: $sm) {
+          display: block;
+        }
+      }
+      .product-item {
+        margin-bottom: 3rem;
+        // padding-bottom: 1rem;
+        border-radius: 15px;
+        overflow: hidden;
+        background-color: #fff;
+        min-height: 630px;
+
+        p {
+          display: none;
+        }
+
+        ul {
+          display: none;
+        }
+
+        .star-rating {
+          display: none;
+        }
+
+        .product-single-buy-button {
+          text-align: center;
+
+          .btn {
+            background-color: #e77785;
+            border-color: #e77785;
+            border-radius: 25px;
+            color: #fff;
+
+            &:hover {
+              background-color: #fff;
+              color: #e77785;
+            }
+          }
+          .buy-button {
+            text-transform: uppercase;
+            border-radius: 25px;
+          }
+        }
+
+        .product-item-read-more-link {
+          text-align: center;
+          padding-right: 20px;
+          padding-left: 20px;
+          margin-bottom: 1rem;
+
+          .btn {
+            background-color: #fff;
+            border-color: #e77785;
+            border-radius: 25px;
+            color: #e77785;
+
+            &:hover {
+              background-color: #e77785;
+              color: #fff;
+            }
+          }
+          .read-more-button {
+            text-transform: uppercase;
+            border-radius: 25px;
+          }
+        }
+
+        .product-item-image {
+          background-color: #ffffff;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+
+          img {
+            height: 100%;
+            width: 100%;
+          }
+        }
+      }
+    }
+
+    .product-title-item {
+      padding: 20px;
+      padding-bottom: 40px;
+      background-color: #fff;
+      text-align: center;
+
+      .product-item-price {
+        margin-top: 1rem;
+
+        .amount {
+          color: #e77785;
+        }
+      }
+
+      .product-hr-item {
+        // padding-right: 5rem;
+        // padding-left: 5rem;
+
+        hr {
+          width: 20%;
+          background-color: lighten(#e77785, 10%);
+        }
+      }
+
+      h2 {
+        font-weight: 300;
+        color: black;
+        font-size: 20px;
+        text-transform: uppercase;
+      }
+    }
   }
 }
 
@@ -2260,4 +2376,10 @@ body {
   strong {
     font-weight: 500;
   }
+}
+
+.product-header-bar {
+  color: red;
+  background-color: yellow;
+  padding: 20px;
 }

@@ -174,3 +174,95 @@ if ( ! is_admin() && ! function_exists( 'wc_review_ratings_enabled' ) ) {
 		return wc_reviews_enabled() && 'yes' === get_option( 'woocommerce_enable_review_rating' );
 	}
 }
+
+remove_action('woocommerce_single_product_summary', 'woocommerce_template_single_add_to_cart', 30);
+remove_action('woocommerce_single_product_summary', 'woocommerce_template_single_meta', 40);
+remove_action( 'woocommerce_before_main_content', 'woocommerce_breadcrumb', 20, 0);
+remove_action( 'woocommerce_after_single_product_summary', 'woocommerce_output_related_products', 20 );
+remove_action( 'woocommerce_after_shop_loop_item', 'woocommerce_template_loop_add_to_cart' );
+add_action( 'woocommerce_before_single_product', 'bbloomer_prev_next_product' );
+
+// and if you also want them at the bottom...
+add_action( 'woocommerce_after_single_product', 'bbloomer_prev_next_product' );
+ 
+function bbloomer_prev_next_product() {
+	echo '<div class="prev_next_buttons">';
+		// 'product_cat' will make sure to return next/prev from current category
+			$previous = next_post_link('%link', '&larr; PREVIOUS', TRUE, ' ', 'product_cat');
+			$next = previous_post_link('%link', 'NEXT &rarr;', TRUE, ' ', 'product_cat');
+		
+		echo $previous;
+		echo $next;
+		
+	echo '</div>'; 
+}
+
+remove_action( 'woocommerce_before_shop_loop_item_title', 'woocommerce_template_loop_product_thumbnail', 10);
+add_action( 'woocommerce_before_shop_loop_item_title', 'woocommerce_template_loop_product_thumbnail', 10);
+
+if ( ! function_exists( 'woocommerce_template_loop_product_thumbnail' ) ) {
+    function woocommerce_template_loop_product_thumbnail() {
+        echo woocommerce_get_product_thumbnail();
+    } 
+}
+if ( ! function_exists( 'woocommerce_get_product_thumbnail' ) ) {   
+    function woocommerce_get_product_thumbnail( $size = 'shop_catalog', $placeholder_width = 0, $placeholder_height = 0  ) {
+        global $post, $woocommerce;
+        $output = '<div class="product-item-image">';
+
+        if ( has_post_thumbnail() ) {               
+            $output .= get_the_post_thumbnail( $post->ID, $size );              
+        }                       
+        $output .= '</div>';
+        return $output;
+    }
+}
+remove_action( 'woocommerce_before_shop_loop_item', 'woocommerce_template_loop_product_link_open', 10 );
+remove_action( 'woocommerce_after_shop_loop_item', 'woocommerce_template_loop_product_link_close', 5 );
+
+add_action( 'woocommerce_after_shop_loop_item', 'read_more_link' );
+
+function read_more_link() { 
+	$link = apply_filters( 'woocommerce_loop_product_link', get_the_permalink(), $product );
+	echo '<div class="product-item-read-more-link">';
+	echo '<a href="' . esc_url( $link ) . '" class="btn btn-primary read-more-button"> Read More </a>';
+	echo '</div>';
+}
+
+add_action( 'woocommerce_after_shop_loop_item', 'wc_add_short_description' );
+
+function wc_add_short_description() {
+	global $product;
+
+	?>
+        <div itemprop="description">
+            <?php echo apply_filters( 'woocommerce_short_description', $product->post->post_excerpt ) ?>
+        </div>
+	<?php
+}
+
+if ( ! function_exists( 'woocommerce_template_loop_product_title' ) ) {
+	/**
+	 * Show the product title in the product loop. By default this is an H2.
+	 */
+	function woocommerce_template_loop_product_title() {
+		echo '<div class="product-title-item">';
+		echo '<div class="product-hr-item">';
+		echo '<hr>';
+		echo '</div>';
+		echo '<h2 class="' . esc_attr( apply_filters( 'woocommerce_product_loop_title_classes', 'woocommerce-loop-product__title' ) ) . '">' . get_the_title() . '</h2>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+	}
+}
+
+if ( ! function_exists( 'woocommerce_template_loop_price' ) ) {
+	/**
+	 * Get the product price for the loop.
+	 */
+	function woocommerce_template_loop_price() {
+		echo '<div class="product-item-price">';
+			wc_get_template( 'loop/price.php' );
+		echo '</div>';
+		echo '</div>';
+
+	}
+}
