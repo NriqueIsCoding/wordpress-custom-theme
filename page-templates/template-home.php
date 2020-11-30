@@ -38,8 +38,8 @@ get_header();
             
             </div>
             <div class="home-banner-column-buttons wow bounceInUp">
-                <button class="btn cpgreen btn-lg btn-primary show-now-button" type="submit">Shop Now</button>
-                <button class="btn cpgreen btn-lg btn-primary find-more-button" type="submit">Find More</button>
+                <a class="btn btn-lg btn-primary show-now-button" href="<?php echo site_url('store/'); ?>" role="button">Shop now</a>
+                <a class="btn btn-lg btn-primary find-more-button" href="<?php echo site_url('/category/classes/'); ?>" role="button">Find More</a>
             </div>
         </div>
     </div>  
@@ -165,81 +165,63 @@ get_header();
                 </div>
             </div>
             <div class="product-offers">
-                <div class="card">
-                    <div class="card-body">
-                        <p class="product-icon"></p>
-                        <p class="product-title">hair cutting</p>
-                        <p class="product-price">from <span> $47 </span></p>
-                        <div class="product-details">
-                        <ul>
-                            <li>Lorem ipsum dolor sit</li>
-                            <li>Amet, consectetur</li>
-                            <li>Adipisicing elit, sed do</li>
-                            <li>Eiusmod tempor labore</li>
-                        </ul> 
-                        </div>
-                        <div class="product-link">
-                            <button class="btn cpgreen btn-lg btn-primary learn-more-button" type="submit">buy now</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="card second">
-                    
-                    <div class="card-body">
-                        <p class="product-icon"></p>
-                        <p class="product-title">oil massage</p>
-                        <p class="product-price">from <span> $47 </span></p>
-                        <div class="product-details">
-                        <ul>
-                            <li>Lorem ipsum dolor sit</li>
-                            <li>Amet, consectetur</li>
-                            <li>Adipisicing elit, sed do</li>
-                            <li>Eiusmod tempor labore</li>
-                        </ul> 
-                        </div>
-                        <div class="product-link">
-                            <button class="btn cpgreen btn-lg btn-primary learn-more-button" type="submit">buy now</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="card third">
-                    
-                    <div class="card-body">
-                        <p class="product-icon"></p>
-                        <p class="product-title">make up</p>
-                        <p class="product-price">from <span> $47 </span></p>
-                        <div class="product-details">
-                        <ul>
-                            <li>Lorem ipsum dolor sit</li>
-                            <li>Amet, consectetur</li>
-                            <li>Adipisicing elit, sed do</li>
-                            <li>Eiusmod tempor labore</li>
-                        </ul> 
-                        </div>
-                        <div class="product-link">
-                            <button class="btn cpgreen btn-lg btn-primary learn-more-button" type="submit">buy now</button>
+                <div class="row">
+                    <?php
+                        $args = array(
+                            'post_type' => 'product',
+                            // 'product_cat' => 'Name_of_category'
+                            'orderby' => 'menu_order',
+                            'order' => 'ASC',
+                            'posts_per_page' => 3
+                        );
+
+                        $loop = new WP_Query( $args );
+
+                        if ( $loop->have_posts() ) {
+                            while ( $loop->have_posts() ) : $loop->the_post();
+                    ?>
+
+                    <div class="col-sm-4">
+                        <div class="product">
+                            <div class="image-holder"
+                                <?php  if( has_post_thumbnail() ) { 
+                                    $image = wp_get_attachment_image_src( get_post_thumbnail_id(), 'medium');
+                                ?>
+                                    style="background-image:url(<?php echo $image[0]; ?>)"
+                                <?php } ?> >
+                            </div>
+                            <div class="body-holder">
+                                <p class="product-title"><?php the_title(); ?></p>
+                                <p class="product-price">from &nbsp; &nbsp; <span> $<?php echo get_post_meta( get_the_ID(), '_regular_price', true); ?> </span></p>
+                                <div class="product-details">
+                                    <?php 
+                                    
+                                    $excerpt = get_the_excerpt();
+                                    $excerpt = substr( $excerpt , 0, 180);
+                                    echo $excerpt;
+                                    
+                                    ?>
+                                </div>
+                                <div class="product-link">
+                                    <a class="btn btn-primary read-more-button" href="<?php echo the_permalink();?>" role="button">Read More</a>
+                                </div>
+                            </div>      
                         </div>
                     </div>
+
+                    <?php
+                            endwhile;
+                        } else {
+                            echo __( 'No products found' );
+                        }
+                        wp_reset_postdata();
+                    ?>
                 </div>
-                <div class="card fourth">
-                    
-                    <div class="card-body">
-                        <p class="product-icon"></p>
-                        <p class="product-title">aroma therapy</p>
-                        <p class="product-price">from <span> $47 </span></p>
-                        <div class="product-details">
-                        <ul>
-                            <li>Lorem ipsum dolor sit</li>
-                            <li>Amet, consectetur</li>
-                            <li>Adipisicing elit, sed do</li>
-                            <li>Eiusmod tempor labore</li>
-                        </ul> 
-                        </div>
-                        <div class="product-link">
-                            <button class="btn cpgreen btn-lg btn-primary learn-more-button" type="submit">buy now</button>
-                        </div>
-                    </div>
-                </div>
+            </div>
+            <div class="products-show-me-more">
+                <div class="products-show-me-more-link">
+`                    <a class="btn btn-primary show-me-more-button" href="<?php echo site_url('store/'); ?>" role="button">Show me more products</a>
+`                </div>
             </div>
         </div>
     </div>
@@ -394,75 +376,10 @@ get_header();
                 <?php endwhile; ?>
 
                 <?php } ?>
-
-                
-                <!-- <div class="card second">
-                    <div class="card-img-top">
-                    <img src="<?php echo bloginfo('template_url'); ?>/img/post-sample-2.jpg"/>
-                    </div>
-                    <div class="card-body">
-                        <div class="author">
-                            <p>By Lisa Emerson</p>  
-                        </div>
-                        <div class="blog-title">
-                            <p>Beauty Post</p>
-                        </div>
-                        <div class="blog-details">
-                            <p>
-                                Lorem Ipsum. Proin gravida nibh vel velit auctor aliquet. Aenean sollicitudin, lorem quis bibendum auctor, nisi elit consequat ipsum.
-                            </p>
-                        </div>
-                        <div class="blog-link">
-                            <button class="btn cpgreen btn-lg btn-primary read-more-button" type="submit">Read More</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="card third">
-                    <div class="card-img-top">
-                    <img src="<?php echo bloginfo('template_url'); ?>/img/post-sample-3.jpg"/>
-                    </div>
-                    <div class="card-body">
-                        <div class="author">
-                            <p>By Lisa Emerson</p>  
-                        </div>
-                        <div class="blog-title">
-                            <p>Beauty Post</p>
-                        </div>
-                        <div class="blog-details">
-                            <p>
-                                Lorem Ipsum. Proin gravida nibh vel velit auctor aliquet. Aenean sollicitudin, lorem quis bibendum auctor, nisi elit consequat ipsum.
-                            </p>
-                        </div>
-                        <div class="blog-link">
-                            <button class="btn cpgreen btn-lg btn-primary read-more-button" type="submit">Read More</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="card fourth">
-                    <div class="card-img-top">
-                    <img src="<?php echo bloginfo('template_url'); ?>/img/post-sample-4.jpg"/>
-                    </div>
-                    <div class="card-body">
-                        <div class="author">
-                            <p>By Lisa Emerson</p>  
-                        </div>
-                        <div class="blog-title">
-                            <p>Beauty Post</p>
-                        </div>
-                        <div class="blog-details">
-                            <p>
-                                Lorem Ipsum. Proin gravida nibh vel velit auctor aliquet. Aenean sollicitudin, lorem quis bibendum auctor, nisi elit consequat ipsum.
-                            </p>
-                        </div>
-                        <div class="blog-link">
-                            <button class="btn cpgreen btn-lg btn-primary read-more-button" type="submit">Read More</button>
-                        </div>
-                    </div>
-                </div> -->
             </div>
             <div class="blogs-show-me-more">
                 <div class="blogs-show-me-more-link">
-                    <a class="btn btn-primary show-me-more-button" href="<?php echo esc_url('/wordpress/category/classes'); ?>" role="button">Show me more classes</a>
+                    <a class="btn btn-primary show-me-more-button" href="<?php echo site_url('/category/classes/'); ?>" role="button">Show me more Classes</a>
                 </div>
             </div>
         </div>
